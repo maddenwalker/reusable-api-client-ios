@@ -52,11 +52,11 @@ class ApiClient {
                         let json = JSON(jsonObject)
                         completion(json, httpResponse, nil)
                     } catch {
-                        completion(nil, httpResponse, ApiError.JSONError)
+                        completion(nil, httpResponse, ApiError.JSONError.asNSError())
                     }
                 } else {
                     //TODO: Separate Subclass of applicable errors needed here
-                    completion(nil, httpResponse, NSError(domain: "com.reusableApiClient.emptyresponse", code: 11, userInfo: nil))
+                    completion(nil, httpResponse, ApiError.EmptyResponse.asNSError())
                 }
             }
         })
