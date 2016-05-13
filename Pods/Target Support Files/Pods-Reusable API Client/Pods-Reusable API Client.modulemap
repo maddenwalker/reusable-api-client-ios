@@ -1,0 +1,6 @@
+framework module Pods_Reusable_API_Client {
+  umbrella header "Pods-Reusable API Client-umbrella.h"
+
+  export *
+  module * { export * }
+}
