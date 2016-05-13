@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C4644FC1CE5444000265C0E /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4644FB1CE5444000265C0E /* ApiClient.swift */; };
 		8C4645001CE54BF300265C0E /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4644FF1CE54BF300265C0E /* ApiError.swift */; };
+		8CE409FA1CE688A8003E6164 /* ApiClientResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE409F91CE688A8003E6164 /* ApiClientResult.swift */; };
 		8CF546351CE542D400A786CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF546341CE542D400A786CC /* AppDelegate.swift */; };
 		8CF546371CE542D400A786CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF546361CE542D400A786CC /* ViewController.swift */; };
 		8CF5463C1CE542D400A786CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CF5463B1CE542D400A786CC /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		86EDD68851773788C541C378 /* Pods-Reusable API Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reusable API Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reusable API Client/Pods-Reusable API Client.debug.xcconfig"; sourceTree = "<group>"; };
 		8C4644FB1CE5444000265C0E /* ApiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		8C4644FF1CE54BF300265C0E /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		8CE409F91CE688A8003E6164 /* ApiClientResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiClientResult.swift; sourceTree = "<group>"; };
 		8CF546311CE542D400A786CC /* Reusable API Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reusable API Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CF546341CE542D400A786CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CF546361CE542D400A786CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			children = (
 				8C4644FF1CE54BF300265C0E /* ApiError.swift */,
 				8C4644FB1CE5444000265C0E /* ApiClient.swift */,
+				8CE409F91CE688A8003E6164 /* ApiClientResult.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				8CF546371CE542D400A786CC /* ViewController.swift in Sources */,
 				8C4645001CE54BF300265C0E /* ApiError.swift in Sources */,
 				8CF546351CE542D400A786CC /* AppDelegate.swift in Sources */,
+				8CE409FA1CE688A8003E6164 /* ApiClientResult.swift in Sources */,
 				8C4644FC1CE5444000265C0E /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

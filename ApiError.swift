@@ -28,12 +28,18 @@ public enum ApiError: ErrorType {
         }
     }
     
-    func asNSError() -> NSError {
+    var userInfo: [NSObject: AnyObject]? {
         switch self {
         case .JSONError:
-            return NSError(domain: errorDomain, code: errorCode, userInfo: nil)
+            return [NSLocalizedDescriptionKey : "The JSON received was not in the proper form and could not be serialized"]
+        case .EmptyResponse:
+            return [NSLocalizedDescriptionKey : "The server returned an empty response, please try again"]
         default:
-            <#code#>
+            return nil
         }
+    }
+    
+    func asNSError() -> NSError {
+        return NSError(domain: errorDomain, code: errorCode, userInfo: userInfo)
     }
 }
