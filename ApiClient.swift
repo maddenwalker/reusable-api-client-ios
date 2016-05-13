@@ -22,9 +22,18 @@ class ApiClient {
     //Keep track of current tasks
     var currentTasks: Set<NSURLSessionDataTask> = []
     
+    var loggingEnabled = false
+    
     init(configuration: NSURLSessionConfiguration) {
         self.configuration = configuration
         
+    }
+    
+    func cancelAllRequests() {
+        for task in self.currentTasks {
+            task.cancel()
+        }
+        self.currentTasks = []
     }
     
     //Assumption on generic parameter in function is the use of pod Argo
@@ -43,8 +52,8 @@ class ApiClient {
             case .Array(let array):
                 return array.map { T.decode($0).value! }
             default:
-                print("Response was not an array, cannot continue")
-                print(json)
+                self.debugLog("Response was not an array, cannot continue")
+                self.debugLog("\(json)")
                 return nil 
             }
             }, completion: completion)
@@ -65,15 +74,15 @@ class ApiClient {
                             completion(.Success(resource))
                         } else {
                             //We cannot parse the JSON file successfully into T
-                            print("WARNING: Could not parse the following JSON response as a \(T.self):")
-                            print(json!)
+                            self.debugLog("WARNING: Could not parse the following JSON response as a \(T.self):")
+                            self.debugLog("\(json!)")
                             completion(.UnexpectedResponse(json!))
                         }
                     case 404: completion(.NotFound)
                     case 400...499: completion(.ClientError(statusCode, NSHTTPURLResponse.localizedStringForStatusCode(statusCode)))
                     case 500...599: completion(.ServerError(statusCode, NSHTTPURLResponse.localizedStringForStatusCode(statusCode)))
                     default:
-                        print("Received HTTP \(statusCode), which was not handled")
+                        self.debugLog("Received HTTP \(statusCode), which was not handled")
                     }
                 }
             }
@@ -88,18 +97,23 @@ class ApiClient {
             self.currentTasks.remove(dataTask!)
             let httpResponse = response as! NSHTTPURLResponse
             if let error = error {
+                self.debugLog("Received an error from HTTP \(request.HTTPMethod!) to \(request.URL!)")
+                self.debugLog("Error: \(error)")
                 completion(nil, httpResponse, error)
             } else {
+                self.debugLog("Received HTTP \(httpResponse.statusCode) from \(request.HTTPMethod!) to \(request.URL!)")
                 if let data = data {
                     do {
+                        self.debugResponseData(data)
                         let jsonObject = try NSJSONSerialization.JSONObjectWithData(data, options: [])
                         let json = JSON(jsonObject)
                         completion(json, httpResponse, nil)
                     } catch {
+                        self.debugLog("Error parsing the response as JSON")
                         completion(nil, httpResponse, ApiError.JSONError.asNSError())
                     }
                 } else {
-                    //TODO: Separate Subclass of applicable errors needed here
+                    self.debugLog("Received an empty response from the API")
                     completion(nil, httpResponse, ApiError.EmptyResponse.asNSError())
                 }
             }
@@ -121,6 +135,22 @@ class ApiClient {
             json = response
         }
         return json
+    }
+    
+    //MARK: - Logging 
+    
+    func debugLog(msg: String) {
+        guard loggingEnabled else { return }
+        print(msg)
+    }
+    
+    func debugResponseData(data: NSData) {
+        guard loggingEnabled else { return }
+        if let body = String(data: data, encoding: NSUTF8StringEncoding) {
+            print(body)
+        } else {
+            print("<empty response>")
+        }
     }
 
 }
